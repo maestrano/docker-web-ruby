@@ -7,6 +7,7 @@ cd /app
 # Set default environment variables
 export RACK_ENV=${RACK_ENV:-production}
 export RAILS_ENV=${RAILS_ENV:-production}
+export RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
 
 # Clone app from git
 if [ -n "$GIT_URL" ] && [ -n "$GIT_BRANCH" ]; then
