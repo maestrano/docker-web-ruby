@@ -2,7 +2,7 @@ FROM ruby:2.3
 
 # Install System libraries
 RUN apt-get update \
-  && apt-get install git
+  && apt-get install -y git supervisor nginx
 
 # Install Node GPG keys listed at https://github.com/nodejs/node
 RUN set -ex \
@@ -28,16 +28,19 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
+
 # Install foreman and popular gems
 RUN gem install foreman \
   coffee-rails:4.0.1 \
   bcrypt-ruby:3.1.2 \
   bootstrap-sass:2.3.2.0 \
+  bootstrap-will_paginate:0.0.9 \
   execjs:2.7.0 \
   jbuilder:1.0.2 \
   jquery-rails:3.0.4 \
   pg:0.18.4 \
   pg:0.15.1 \
+  puma:3.4.0 \
   rails:5.0 \
   rails:4.2 \
   rails_12factor:0.0.3 \
@@ -52,8 +55,14 @@ RUN gem install foreman \
   will_paginate:3.0.4 \
   --no-ri --no-rdoc --verbose
 
-# App setup
-RUN mkdir -p /app
+# Setup
+RUN mkdir -p /app /var/log/app \
+  && rm -f /etc/nginx/sites-enabled/*
+
+# Configuration
+COPY nginx.conf /etc/nginx/
+COPY app.conf /etc/nginx/sites-enabled/
+COPY supervisord.conf /etc/supervisor/
 
 # Expose 80
 EXPOSE 80
@@ -62,4 +71,4 @@ EXPOSE 80
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD [ "foreman", "start", "-p", "80" ]
+CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
