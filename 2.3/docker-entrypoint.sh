@@ -13,10 +13,16 @@ export RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
 if [ -n "$GIT_URL" ] && [ -n "$GIT_BRANCH" ]; then
   [ -d /app/.git ] || git clone --branch "$GIT_BRANCH" --depth 50 $GIT_URL /app
   [ -n "$GIT_COMMIT_ID" ] && git checkout -qf $GIT_COMMIT_ID
+fi
 
+# Run bundler
+if [ -f /app/Gemfile ]; then
   # Install all required gems
   [ "$NO_BUNDLE" == "true" ] || bundle install --without development test
+fi
 
+# Run rails specific tasks
+if [ -f /app/config/application.rb ]; then
   # Migrate database
   [ "$NO_MIGRATE" == "true" ] || bundle exec rake db:migrate
 
