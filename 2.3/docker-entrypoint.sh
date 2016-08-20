@@ -8,15 +8,22 @@ cd /app
 export RACK_ENV=${RACK_ENV:-production}
 export RAILS_ENV=${RAILS_ENV:-production}
 export RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
+export GIT_BRANCH=${GIT_BRANCH:-master}
 
 # Clone app from git
 if [ -n "$GIT_URL" ] && [ -n "$GIT_BRANCH" ]; then
   [ -d /app/.git ] || git clone --branch "$GIT_BRANCH" --depth 50 $GIT_URL /app
   [ -n "$GIT_COMMIT_ID" ] && git checkout -qf $GIT_COMMIT_ID
+fi
 
+# Run bundler
+if [ -f /app/Gemfile ]; then
   # Install all required gems
   [ "$NO_BUNDLE" == "true" ] || bundle install --without development test
+fi
 
+# Run rails specific tasks
+if [ -f /app/config/application.rb ]; then
   # Migrate database
   [ "$NO_MIGRATE" == "true" ] || bundle exec rake db:migrate
 
