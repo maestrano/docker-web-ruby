@@ -16,6 +16,11 @@ if [ -n "$GIT_URL" ] && [ -n "$GIT_BRANCH" ]; then
   [ -n "$GIT_COMMIT_ID" ] && git checkout -qf $GIT_COMMIT_ID
 fi
 
+# Run deploy hook
+if [ -f /app/.deploy-hook ]; then
+  [ "$NO_HOOK" == "true" ] || bash /app/.deploy-hook
+fi
+
 # Run bundler
 if [ -f /app/Gemfile ]; then
   # Install all required gems
