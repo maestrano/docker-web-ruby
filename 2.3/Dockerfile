@@ -59,7 +59,7 @@ RUN gem install foreman \
   therubyracer:0.12.2 \
   turbolinks:1.1.1 \
   uglifier:2.1.1 \
-  uglifier:3.0.1 \
+  uglifier:3.0.2 \
   will_paginate:3.0.4 \
   --no-ri --no-rdoc --verbose
 
