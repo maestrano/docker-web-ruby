@@ -37,21 +37,29 @@ RUN gem install foreman \
   bootstrap-will_paginate:0.0.9 \
   execjs:2.7.0 \
   jbuilder:1.0.2 \
+  jbuilder:2.2.16 \
   jquery-rails:3.0.4 \
+  jquery-rails:4.1.1 \
+  mno-enterprise:3.1.0 \
+  newrelic_rpm:3.16.2.321 \
   pg:0.18.4 \
   pg:0.15.1 \
   puma:3.4.0 \
+  puma:3.6.0 \
   rails:5.0 \
-  rails:4.2 \
+  rails:4.2.7.1 \
   rails_12factor:0.0.3 \
   rails_12factor:0.0.2 \
   rake:11.2.2 \
   sass-rails:4.0.1 \
+  sass-rails:5.0.6 \
+  sparkpost:0.1.4 \
   sprockets:2.11.0 \
   sqlite3:1.3.11 \
   therubyracer:0.12.2 \
   turbolinks:1.1.1 \
   uglifier:2.1.1 \
+  uglifier:3.0.1 \
   will_paginate:3.0.4 \
   --no-ri --no-rdoc --verbose
 
