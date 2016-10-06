@@ -36,12 +36,18 @@ RUN gem install foreman \
   bootstrap-sass:2.3.2.0 \
   bootstrap-will_paginate:0.0.9 \
   execjs:2.7.0 \
+  intercom:3.5.4 \
   jbuilder:1.0.2 \
   jbuilder:2.2.16 \
   jquery-rails:3.0.4 \
   jquery-rails:4.1.1 \
   mno-enterprise:3.1.0 \
+  mno-enterprise:3.1.2 \
   newrelic_rpm:3.16.2.321 \
+  omniauth-facebook:2.0.1 \
+  omniauth-google-oauth2:0.2.10 \
+  omniauth-linkedin-oauth2:0.1.5 \
+  omniauth-openid:1.0.1 \
   pg:0.18.4 \
   pg:0.15.1 \
   puma:3.4.0 \
