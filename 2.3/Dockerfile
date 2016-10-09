@@ -71,7 +71,8 @@ RUN gem install foreman \
 
 # Setup
 RUN mkdir -p /app /var/log/app \
-  && rm -f /etc/nginx/sites-enabled/*
+  && rm -f /etc/nginx/sites-enabled/* \
+  && chown -R www-data:www-data /app /var/log/app
 
 # Configuration
 COPY nginx.conf /etc/nginx/
@@ -80,6 +81,10 @@ COPY supervisord.conf /etc/supervisor/
 
 # Expose 80
 EXPOSE 80
+
+# Healthcheck
+COPY healthcheck.sh /usr/local/bin/
+HEALTHCHECK --timeout=5s CMD bash /usr/local/bin/healthcheck.sh
 
 # Entrypoint command
 COPY docker-entrypoint.sh /usr/local/bin/
