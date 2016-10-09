@@ -10,6 +10,7 @@ before_install:
 
 script:
   # Build docker image
+  - cd 2.3/
   - docker build -t maestrano/web-ruby:travis .
 
   # Run image
