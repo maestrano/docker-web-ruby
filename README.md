@@ -3,6 +3,7 @@ Docker image packed with ruby, git and nginx.
 
 [![Build Status](https://travis-ci.org/maestrano/docker-web-ruby.svg?branch=master)](https://travis-ci.org/maestrano/docker-web-ruby)
 
+
 ## Examples
 Launch a rails app from a public github repository
 ```
