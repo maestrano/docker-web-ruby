@@ -11,7 +11,7 @@ before_install:
 script:
   # Build docker image
   - cd 2.3/
-  - docker build -t maestrano/web-ruby:travis .
+  - docker build -t maestrano/web-ruby:travis . > /dev/null 2>&1
 
   # Run image
   - docker run -P -d --name travis-test -e GIT_URL=https://github.com/alachaum/sample_app_rails_4 -e GIT_BRANCH=master maestrano/web-ruby:travis
