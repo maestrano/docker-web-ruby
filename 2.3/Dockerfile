@@ -81,6 +81,10 @@ COPY supervisord.conf /etc/supervisor/
 # Expose 80
 EXPOSE 80
 
+# Healthcheck
+COPY healthcheck.sh /usr/local/bin/
+HEALTHCHECK --timeout=5s CMD bash /usr/local/bin/healthcheck.sh
+
 # Entrypoint command
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
