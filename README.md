@@ -50,3 +50,16 @@ echo "This is a deploy hook!"
 echo "I run after checkout..."
 echo "...and before bundler"
 ```
+
+## Docker Healthcheck
+The image provides a **default Docker healthcheck** which curls your app on the root path. You can customize this healthcheck by adding a `.healthcheck` in the root directory of your application. This healtcheck file should be a bash script returning a non-zero exit code on failure. The healthcheck can be completely disabled by adding "NO_HEALTHCHECK=true" to the list of container environment variables.
+
+**Example:** PROJECT_ROOT/.healtcheck
+```sh
+#!/bin/bash
+#
+# Example of custom healthcheck
+#
+curl http://localhost/ping && \
+curl http://localhost/version
+```
