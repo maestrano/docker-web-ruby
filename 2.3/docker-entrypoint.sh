@@ -42,5 +42,8 @@ if [ ! "$NO_NGINX" == "true" ] && [ -f /app/nginx.conf ]; then
   cp -p /app/nginx.conf /etc/nginx/sites-enabled/
 fi
 
+# Update ownership
+chown -R www-data:www-data /app /var/log/app
+
 # Perform command - default is "foreman start" (see Dockerfile)
 exec "$@"
