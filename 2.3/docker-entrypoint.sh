@@ -29,6 +29,9 @@ fi
 
 # Run rails specific tasks
 if [ -f /app/config/application.rb ]; then
+  # Load schema (you should unset this var afterwards)
+  [ "$RAILS_LOAD_SCHEMA" == "true" ] && bundle exec rake db:schema:load
+
   # Migrate database
   [ "$NO_MIGRATE" == "true" ] || bundle exec rake db:migrate
 
