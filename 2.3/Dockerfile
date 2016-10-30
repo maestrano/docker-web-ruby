@@ -69,6 +69,12 @@ RUN gem install foreman \
   will_paginate:3.0.4 \
   --no-ri --no-rdoc --verbose
 
+# App Support tools
+RUN mkdir -p /app_support/geocoder \
+  && touch /app_support/geocoder/geodb.mmdb \
+  && curl -s "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz" | gunzip -c > /app_support/geocoder/geodb.mmdb \
+  && chown -R www-data:www-data /app_support
+
 # Setup
 RUN mkdir -p /app /var/log/app \
   && rm -f /etc/nginx/sites-enabled/* \
