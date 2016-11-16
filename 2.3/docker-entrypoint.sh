@@ -48,5 +48,10 @@ fi
 # Update ownership
 chown -R www-data:www-data /app /var/log/app
 
+# Run post-deploy hook
+if [ -f /app/.post-deploy-hook ]; then
+  [ "$NO_HOOK" == "true" ] || bash /app/.post-deploy-hook
+fi
+
 # Perform command - default is "foreman start" (see Dockerfile)
 exec "$@"
