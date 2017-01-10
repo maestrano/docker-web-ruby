@@ -30,6 +30,9 @@ script:
   # Check that application is up
   - "curl http://${container_ip}:80/"
 
+  # Remove container
+  - docker rm -f travis-test
+
   #=======================================
   # Test with foreman options
   #=======================================
