@@ -5,6 +5,7 @@ set -e
 cd /app
 
 # Set default environment variables
+export FOREMAN_OPTS=${FOREMAN_OPTS:-""}
 export RACK_ENV=${RACK_ENV:-production}
 export RAILS_ENV=${RAILS_ENV:-production}
 export RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
