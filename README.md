@@ -29,6 +29,12 @@ web: bundle exec puma -t 5:5 -p ${PORT:-3000}
 worker: bundle exec rake jobs:work
 ```
 
+The foreman configuration can be overriden at runtime by setting the `FOREMAN_OPTS` environment variable. Considering the Procfile above running the following command would only run the "web" proc.
+
+```
+docker run -P -d -e FOREMAN_OPTS="-m web=1" -e GIT_URL=https://github.com/alachaum/sample_app_rails_4 maestrano/web-ruby
+```
+
 ## Logging
 For Rails 4 you may want to add the `rails_12factor` gem to your Gemfile under the `production` group to redirect output to STDOUT. For Rails 5 you can add STDOUT logging directly your production.rb file.
 
