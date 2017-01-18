@@ -10,6 +10,7 @@ export RACK_ENV=${RACK_ENV:-production}
 export RAILS_ENV=${RAILS_ENV:-production}
 export RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
 export GIT_BRANCH=${GIT_BRANCH:-master}
+export BUNDLE_JOBS=${BUNDLE_JOBS:-$(nproc)} # default to number of cores
 
 # Clone app from git
 if [ -n "$GIT_URL" ] && [ -n "$GIT_BRANCH" ]; then
@@ -25,6 +26,8 @@ fi
 # Run bundler
 if [ -f /app/Gemfile ]; then
   # Install all required gems
+  # Number of bundle jobs is defined by BUNDLE_JOBS and defaults to the number
+  # of available cores
   [ "$NO_BUNDLE" == "true" ] || bundle install --without development test
 fi
 
