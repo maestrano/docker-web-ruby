@@ -40,6 +40,14 @@ For Rails 4 you may want to add the `rails_12factor` gem to your Gemfile under t
 
 See https://github.com/heroku/rails_12factor for more information.
 
+## Gem caching using Gemstash
+If you have a [gemstash server](https://github.com/bundler/gemstash) running you can pass its URL to the container via the `GEMSTASH_SERVER` environment variable to speed up the entrypoint.
+
+Example:
+```
+docker run -P -d -e GEMSTASH_SERVER="http://someserver:9292" -e GIT_URL=https://github.com/alachaum/sample_app_rails_4 maestrano/web-ruby
+```
+
 ## Nginx configuration
 You can customise the default nginx configuration for your app to accomodate any kind of requirements for serving your static assets and SPAs.
 Just drop a `nginx.conf` file in the root of your folder and it will automatically be picked up by web-ruby.

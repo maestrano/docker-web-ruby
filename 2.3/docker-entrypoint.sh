@@ -12,6 +12,12 @@ export RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
 export GIT_BRANCH=${GIT_BRANCH:-master}
 export BUNDLE_JOBS=${BUNDLE_JOBS:-$(nproc)} # default to number of cores
 
+# Configure bundler to use gemstash server if specified
+if [ -n "$GEMSTASH_SERVER" ]; then
+  bundle config mirror.https://rubygems.org $GEMSTASH_SERVER
+  bundle config mirror.https://rubygems.org.fallback_timeout 3
+fi
+
 # Clone app from git
 if [ -n "$GIT_URL" ] && [ -n "$GIT_BRANCH" ]; then
   [ -d /app/.git ] || git clone --branch "$GIT_BRANCH" --depth 50 $GIT_URL /app
