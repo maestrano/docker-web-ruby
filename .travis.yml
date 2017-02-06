@@ -52,3 +52,29 @@ script:
 
   # Remove container
   - docker rm -f travis-test
+
+  #=======================================
+  # Test with Gemstash server
+  #=======================================
+  # Run gemstash server
+  - docker run -P -d --name gemstash maestrano/gemstash
+
+  # Get gemstash ip address
+  - "gemstash_ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' gemstash`"
+
+  # Run image
+  - docker run -P -d --name travis-test -e GEMSTASH_SERVER="http://${gemstash_ip}:9292" -e GIT_URL=https://github.com/alachaum/sample_app_rails_4 -e GIT_BRANCH=master maestrano/web-ruby:travis
+
+  # Get ip address
+  - "container_ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' travis-test`"
+
+  # Wait for container to be ready
+  - try_count=0;
+  - HEALTH_CHECK="starting"
+  - while [ "$HEALTH_CHECK" == "starting" ] || [ "$HEALTH_CHECK" == "unhealthy" ]; do let "try_count++"; [ $try_count -gt 100 ] && exit 20; sleep 5; HEALTH_CHECK=$(docker inspect --format='{{.State.Health.Status}}' travis-test 2>/dev/null); done
+
+  # Check that application is up
+  - "curl http://${container_ip}:80/"
+
+  # Remove container
+  - docker rm -f travis-test
