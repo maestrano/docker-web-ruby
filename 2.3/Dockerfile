@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     imagemagick \
     nginx \
     supervisor \
+    awscli \
   && rm -rf /var/lib/apt/lists/*
 
 # gpg keys listed at https://github.com/nodejs/node
