@@ -34,6 +34,26 @@ script:
   - docker rm -f travis-test
 
   #=======================================
+  # Test with S3
+  #=======================================
+  # Run image
+  - docker run -P -d --name travis-test -e S3_URI=s3://cdn-prd-maestrano/pkg/sample/sample_app_rails.tar.gz -e S3_REGION=ap-southeast-1 maestrano/web-ruby:travis
+
+  # Get ip address
+  - "container_ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' travis-test`"
+
+  # Wait for container to be ready
+  - try_count=0;
+  - HEALTH_CHECK="starting"
+  - while [ "$HEALTH_CHECK" == "starting" ] || [ "$HEALTH_CHECK" == "unhealthy" ]; do let "try_count++"; [ $try_count -gt 100 ] && exit 20; sleep 5; HEALTH_CHECK=$(docker inspect --format='{{.State.Health.Status}}' travis-test 2>/dev/null); done
+
+  # Check that application is up
+  - "curl http://${container_ip}:80/"
+
+  # Remove container
+  - docker rm -f travis-test
+
+  #=======================================
   # Test with foreman options
   #=======================================
   # Run image

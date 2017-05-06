@@ -22,6 +22,15 @@ fi
 if [ -n "$GIT_URL" ] && [ -n "$GIT_BRANCH" ]; then
   [ -d /app/.git ] || git clone --branch "$GIT_BRANCH" --depth 50 $GIT_URL /app
   [ -n "$GIT_COMMIT_ID" ] && git checkout -qf $GIT_COMMIT_ID
+# Download app from S3
+elif [ -n "$S3_URI" ]; then
+  if [ -z "$S3_SECRET_ACCESS_KEY" ]; then
+    opts="--no-sign-request"
+  fi
+  AWS_ACCESS_KEY_ID=$S3_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$S3_SECRET_ACCESS_KEY AWS_DEFAULT_REGION=$S3_REGION aws s3 cp $opts $S3_URI ./
+  archive_file=$(ls)
+  tar xf $archive_file
+  rm -f $archive_file
 fi
 
 # Run deploy hook
