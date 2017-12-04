@@ -59,7 +59,7 @@ RUN gem install foreman \
   puma:3.4.0 \
   puma:3.6.0 \
   rails:5.0 \
-  rails:4.2.7.1 \
+  rails:4.2.10 \
   rails_12factor:0.0.3 \
   rails_12factor:0.0.2 \
   rake:11.2.2 \
