@@ -15,6 +15,22 @@ Launch a rails app from a private github repository
 docker run -P -d -e GIT_URL=https://MY_GITHUB_OAUTH_TOKEN@github.com/alachaum/sample_app_rails_4 -e GIT_BRANCH=master maestrano/web-ruby
 ```
 
+Launch a rails app from a private S3 bucket
+```
+docker run -P -d -e S3_URI=s3://cdn-prd-maestrano/pkg/sample/sample_app_rails.tar.gz \
+  -e S3_ACCESS_KEY_ID=MY_AWS_KEY \
+  -e S3_SECRET_ACCESS_KEY=MY_AWS_SECRET \
+  maestrano/web-ruby
+```
+
+Launch a rails app from a public S3 bucket
+Note: it is preferable to specify the region of your bucket when no authentication is used
+```
+docker run -P -d -e S3_URI=s3://cdn-prd-maestrano/pkg/sample/sample_app_rails.tar.gz \
+  -e S3_REGION=ap-southeast-1
+  maestrano/web-ruby
+```
+
 Launch a rails app from a local folder
 ```
 docker run -P -d -v /some/local/app:/app maestrano/web-ruby
