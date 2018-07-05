@@ -11,6 +11,7 @@ export RAILS_ENV=${RAILS_ENV:-production}
 export RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
 export GIT_BRANCH=${GIT_BRANCH:-master}
 export BUNDLE_JOBS=${BUNDLE_JOBS:-$(nproc)} # default to number of cores
+export S3_REGION=${S3_REGION:-ap-southeast-1}
 
 # Configure bundler to use gemstash server if specified
 if [ -n "$GEMSTASH_SERVER" ]; then
