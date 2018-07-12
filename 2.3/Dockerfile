@@ -1,4 +1,4 @@
-FROM ruby:2.3
+FROM ruby:2.3-jessie
 
 ENV MYSQL_APT_VERSION 0.8.9-1
 ENV DEBIAN_FRONTEND noninteractive
@@ -92,6 +92,19 @@ RUN gem install foreman \
   uglifier:3.0.2 \
   will_paginate:3.0.4 \
   --no-ri --no-rdoc --verbose
+
+# Install python 3.5.5 as a stand alone library
+RUN curl https://www.python.org/ftp/python/3.5.5/Python-3.5.5.tgz | tar xzf - -C /tmp
+RUN cd /tmp/Python-3.5.5 \
+	&& ./configure --prefix=/opt/python \
+	&& make \
+	&& make install
+
+# Add python3.5 to PATH
+ENV PATH="${PATH}:/opt/python/bin"
+
+# Upgrade pip and wheel
+RUN pip3 install pip==10.0.1 wheel==0.31.1
 
 # App Support tools
 RUN mkdir -p /app_support/geocoder \
