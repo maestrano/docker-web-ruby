@@ -38,7 +38,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
 # Install foreman
-RUN gem install foreman --no-ri --no-rdoc --verbose 
+RUN gem install foreman --no-ri --no-rdoc
 
 # App Support tools
 RUN mkdir -p /app_support/geocoder \
