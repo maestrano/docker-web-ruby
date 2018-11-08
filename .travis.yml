@@ -26,7 +26,7 @@ script:
   # Test with minimal parameters
   #=======================================
   # Run image
-  - docker run -P -d --name travis-test -e GIT_URL=https://github.com/alachaum/sample_app_rails_4 -e GIT_BRANCH=master maestrano/web-ruby:travis
+  - docker run -P -d --name travis-test -e GIT_URL=https://github.com/maestrano/sample_app_rails_4 -e GIT_BRANCH=master maestrano/web-ruby:travis
 
   # Get ip address
   - "container_ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' travis-test`"
@@ -66,7 +66,7 @@ script:
   # Test with foreman options
   #=======================================
   # Run image
-  - docker run -P -d --name travis-test -e FOREMAN_OPTS="-m web=1" -e GIT_URL=https://github.com/alachaum/sample_app_rails_4 -e GIT_BRANCH=master maestrano/web-ruby:travis
+  - docker run -P -d --name travis-test -e FOREMAN_OPTS="-m web=1" -e GIT_URL=https://github.com/maestrano/sample_app_rails_4 -e GIT_BRANCH=master maestrano/web-ruby:travis
 
   # Get ip address
   - "container_ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' travis-test`"
@@ -92,7 +92,7 @@ script:
   - "gemstash_ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' gemstash`"
 
   # Run image
-  - docker run -P -d --name travis-test -e GEMSTASH_SERVER="http://${gemstash_ip}:9292" -e GIT_URL=https://github.com/alachaum/sample_app_rails_4 -e GIT_BRANCH=master maestrano/web-ruby:travis
+  - docker run -P -d --name travis-test -e GEMSTASH_SERVER="http://${gemstash_ip}:9292" -e GIT_URL=https://github.com/maestrano/sample_app_rails_4 -e GIT_BRANCH=master maestrano/web-ruby:travis
 
   # Get ip address
   - "container_ip=`docker inspect --format '{{ .NetworkSettings.IPAddress }}' travis-test`"
