@@ -1,4 +1,4 @@
-FROM ruby:2.3-jessie
+FROM ruby:2.5-stretch
 
 # Install System libraries
 RUN apt-get update && apt-get install -y \
@@ -38,46 +38,8 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-
-# Install foreman and popular gems
-RUN gem install foreman \
-  coffee-rails:4.0.1 \
-  bcrypt-ruby:3.1.2 \
-  bootstrap-sass:2.3.2.0 \
-  bootstrap-will_paginate:0.0.9 \
-  execjs:2.7.0 \
-  intercom:3.5.4 \
-  jbuilder:1.0.2 \
-  jbuilder:2.2.16 \
-  jquery-rails:3.0.4 \
-  jquery-rails:4.1.1 \
-  mno-enterprise:3.1.0 \
-  mno-enterprise:3.1.2 \
-  newrelic_rpm:3.16.2.321 \
-  omniauth-facebook:2.0.1 \
-  omniauth-google-oauth2:0.2.10 \
-  omniauth-linkedin-oauth2:0.1.5 \
-  omniauth-openid:1.0.1 \
-  pg:0.18.4 \
-  pg:0.15.1 \
-  puma:3.4.0 \
-  puma:3.6.0 \
-  rails:5.0 \
-  rails:4.2.10 \
-  rails_12factor:0.0.3 \
-  rails_12factor:0.0.2 \
-  rake:11.2.2 \
-  sass-rails:4.0.1 \
-  sass-rails:5.0.6 \
-  sparkpost:0.1.4 \
-  sprockets:2.11.0 \
-  sqlite3:1.3.11 \
-  therubyracer:0.12.2 \
-  turbolinks:1.1.1 \
-  uglifier:2.1.1 \
-  uglifier:3.0.2 \
-  will_paginate:3.0.4 \
-  --no-ri --no-rdoc --verbose
+# Install foreman
+RUN gem install foreman --no-ri --no-rdoc
 
 # App Support tools
 RUN mkdir -p /app_support/geocoder \
