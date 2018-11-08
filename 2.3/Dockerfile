@@ -21,6 +21,7 @@ RUN set -ex \
     C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
     56730D5401028683275BD23C23EFEFE93C4CFFFE \
   ; do \
+    gpg --keyserver pool.sks-keyservers.net --recv-keys "$key" || \
     gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys "$key" || \
     gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" || \
     gpg --keyserver hkp://keyserver.pgp.com:80 --recv-keys "$key" ; \
