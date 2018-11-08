@@ -5,13 +5,22 @@ dist: trusty
 services:
   - docker
 
+env:
+  - VERSION=2.5
+  - VERSION=2.3
+
 before_install:
   - sudo apt-get install -y curl
 
+before_script:
+  - env | sort
+  # - cd "$VERSION"
+  # - slash='/'; image="ruby:${VERSION}-${VARIANT//$slash/-}"
+
 script:
   # Build docker image
-  - cd 2.3/
-  - docker build -t maestrano/web-ruby:travis . > /dev/null 2>&1
+  # - cd 2.3/
+  - docker build -t maestrano/web-ruby:travis -f ${VERSION}/Dockerfile . > /dev/null 2>&1
 
   #=======================================
   # Test with minimal parameters
