@@ -79,7 +79,7 @@ RUN gem install foreman \
   uglifier:2.1.1 \
   uglifier:3.0.2 \
   will_paginate:3.0.4 \
-  --no-ri --no-rdoc --verbose
+  --no-document --verbose
 
 # App Support tools
 RUN mkdir -p /app_support/geocoder \
