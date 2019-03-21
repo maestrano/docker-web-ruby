@@ -92,7 +92,7 @@ RUN gem install foreman \
   uglifier:2.1.1 \
   uglifier:3.0.2 \
   will_paginate:3.0.4 \
-  --no-ri --no-rdoc --verbose
+  --no-document --verbose
 
 # Install python 3.5.5 as a stand alone library
 RUN curl https://www.python.org/ftp/python/3.5.5/Python-3.5.5.tgz | tar xzf - -C /tmp
