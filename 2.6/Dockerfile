@@ -1,4 +1,4 @@
-FROM ruby:2.5-stretch
+FROM ruby:2.6-stretch
 
 # Install System libraries
 RUN apt-get update && apt-get install -y \
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     awscli \
   && rm -rf /var/lib/apt/lists/*
 
-# gpg keys listed at https://github.com/nodejs/node#release-team
+# gpg keys listed at https://github.com/nodejs/node#release-keys
 RUN set -ex \
   && for key in \
     4ED778F539E3634C779C87C6D7062848A1AB005C \
@@ -30,7 +30,7 @@ RUN set -ex \
   done
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 6.14.4
+ENV NODE_VERSION 10.15.3
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
