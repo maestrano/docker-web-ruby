@@ -1,4 +1,4 @@
-FROM ruby:2.3-jessie
+FROM ruby:2.3-stretch
 
 ENV MYSQL_APT_VERSION 0.8.9-1
 ENV DEBIAN_FRONTEND noninteractive
