@@ -1,4 +1,4 @@
-FROM ruby:2.3-jessie
+FROM ruby:2.3-stretch
 
 # Install System libraries
 RUN apt-get update && apt-get install -y \
