@@ -30,6 +30,8 @@ elif [ -n "$S3_URI" ]; then
   if [ -z "$S3_SECRET_ACCESS_KEY" ]; then
     opts="--no-sign-request"
   fi
+  # Setting Signature Version 4 for S3 Request Authentication
+  aws configure set s3.signature_version s3v4
   AWS_ACCESS_KEY_ID=$S3_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$S3_SECRET_ACCESS_KEY AWS_DEFAULT_REGION=$S3_REGION aws s3 cp $opts $S3_URI ./
   archive_file=${S3_URI##*/}
   echo "Unzipping $archive_file"
