@@ -11,6 +11,7 @@ RUN apt-get update \
     nginx \
     supervisor \
     awscli \
+    python3-dev \
   && rm -rf /var/lib/apt/lists/*
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
@@ -83,18 +84,8 @@ RUN gem install foreman \
   will_paginate:3.0.4 \
   --no-document --verbose
 
-# Install python 3.5.5 as a stand alone library
-RUN curl https://www.python.org/ftp/python/3.5.5/Python-3.5.5.tgz | tar xzf - -C /tmp
-RUN cd /tmp/Python-3.5.5 \
-	&& ./configure --prefix=/opt/python \
-	&& make \
-	&& make install
-
-# Add python3.5 to PATH
-ENV PATH="${PATH}:/opt/python/bin"
-
-# Upgrade pip and wheel
-RUN pip3 install pip==10.0.1 wheel==0.31.1
+# Install pip3
+RUN wget https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py
 
 # App Support tools
 RUN mkdir -p /app_support/geocoder \
