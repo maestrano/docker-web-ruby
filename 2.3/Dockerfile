@@ -1,6 +1,5 @@
 FROM ruby:2.3-stretch
 
-ENV MYSQL_APT_VERSION 0.8.9-1
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install System libraries
@@ -12,16 +11,6 @@ RUN apt-get update \
     nginx \
     supervisor \
     awscli \
-    lsb-release \
-    debconf-utils
-
-# Use official MySQL repository
-RUN wget http://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_VERSION}_all.deb
-RUN echo "mysql-apt-config mysql-apt-config/select-tools select Enabled" | debconf-set-selections
-RUN dpkg -i mysql-apt-config_${MYSQL_APT_VERSION}_all.deb \
-  && rm -f mysql-apt-config_${MYSQL_APT_VERSION}_all.deb \
-  && apt-get update \
-  && apt-get install -y libmysqlclient-dev \
   && rm -rf /var/lib/apt/lists/*
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
