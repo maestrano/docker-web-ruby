@@ -1,6 +1,5 @@
-FROM ruby:2.3-jessie
+FROM ruby:2.3-stretch
 
-ENV MYSQL_APT_VERSION 0.8.9-1
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install System libraries
@@ -12,16 +11,7 @@ RUN apt-get update \
     nginx \
     supervisor \
     awscli \
-    lsb-release \
-    debconf-utils
-
-# Use official MySQL repository
-RUN wget http://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_VERSION}_all.deb
-RUN echo "mysql-apt-config mysql-apt-config/select-tools select Enabled" | debconf-set-selections
-RUN dpkg -i mysql-apt-config_${MYSQL_APT_VERSION}_all.deb \
-  && rm -f mysql-apt-config_${MYSQL_APT_VERSION}_all.deb \
-  && apt-get update \
-  && apt-get install -y libmysqlclient-dev \
+    python3-dev \
   && rm -rf /var/lib/apt/lists/*
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
@@ -36,13 +26,14 @@ RUN set -ex \
     C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
     56730D5401028683275BD23C23EFEFE93C4CFFFE \
   ; do \
+    gpg --keyserver pool.sks-keyservers.net --recv-keys "$key" || \
     gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys "$key" || \
     gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" || \
     gpg --keyserver hkp://keyserver.pgp.com:80 --recv-keys "$key" ; \
   done
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 6.12.0
+ENV NODE_VERSION 6.14.4
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
@@ -91,20 +82,10 @@ RUN gem install foreman \
   uglifier:2.1.1 \
   uglifier:3.0.2 \
   will_paginate:3.0.4 \
-  --no-ri --no-rdoc --verbose
+  --no-document --verbose
 
-# Install python 3.5.5 as a stand alone library
-RUN curl https://www.python.org/ftp/python/3.5.5/Python-3.5.5.tgz | tar xzf - -C /tmp
-RUN cd /tmp/Python-3.5.5 \
-	&& ./configure --prefix=/opt/python \
-	&& make \
-	&& make install
-
-# Add python3.5 to PATH
-ENV PATH="${PATH}:/opt/python/bin"
-
-# Upgrade pip and wheel
-RUN pip3 install pip==10.0.1 wheel==0.31.1
+# Install pip3
+RUN wget https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py
 
 # App Support tools
 RUN mkdir -p /app_support/geocoder \
